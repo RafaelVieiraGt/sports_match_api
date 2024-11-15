@@ -4,6 +4,7 @@ import com.sportsmatch.sportsmatch.model.OpenGame;
 import com.sportsmatch.sportsmatch.model.jpa.CasualGamesJPA;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -64,6 +65,7 @@ public interface OpenGameRepository extends JpaRepository<OpenGame, Long> {
             "            s.sport_id = o.sport \n" +
             "            and pl.place_id = o.opengame_location \n" +
             "            and op.opengame_id = o.opengame_id\n" +
+            "            and op.user_id = :userId" +
             "            and o.opengame_date > now()\n" +
             "            group by \n" +
             "            o.opengame_id,\n" +
@@ -78,5 +80,5 @@ public interface OpenGameRepository extends JpaRepository<OpenGame, Long> {
             "            o.opengame_date\n" +
             "            order by o.opengame_date asc\n" +
             "            limit 1")
-    CasualGamesJPA getNextGame();
+    CasualGamesJPA getNextGame(@Param("userId") Long userId);
 }

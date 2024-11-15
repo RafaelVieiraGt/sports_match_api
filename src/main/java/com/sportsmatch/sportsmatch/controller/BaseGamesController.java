@@ -23,10 +23,11 @@ public class BaseGamesController {
         return new ResponseEntity<>(baseGamesService.getCasualGames(latitude, longitude), HttpStatus.OK);
     }
 
-    @GetMapping("next-game/{latitude}/{longitude}")
-    public ResponseEntity<CasualGamesDTO> getNextGame(@PathVariable("latitude") Double latitude,
+    @GetMapping("next-game/{userId}/{latitude}/{longitude}")
+    public ResponseEntity<CasualGamesDTO> getNextGame(@PathVariable("userId") Long userId,
+                                                      @PathVariable("latitude") Double latitude,
                                                       @PathVariable("longitude") Double longitude) {
-        return new ResponseEntity<>(baseGamesService.findNextGame(latitude, longitude), HttpStatus.OK);
+        return new ResponseEntity<>(baseGamesService.findNextGame(userId, latitude, longitude), HttpStatus.OK);
     }
 
 }

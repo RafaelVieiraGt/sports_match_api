@@ -93,8 +93,8 @@ public class BaseGamesService {
         return distancia;
     }
 
-    public CasualGamesDTO findNextGame(Double userLatitude, Double userLongitude) {
-        var jpa = openGameRepository.getNextGame();
+    public CasualGamesDTO findNextGame(Long userId, Double userLatitude, Double userLongitude) {
+        var jpa = openGameRepository.getNextGame(userId);
         if (jpa != null) {
             return new CasualGamesDTO(
                     jpa.getOpengameId(),
