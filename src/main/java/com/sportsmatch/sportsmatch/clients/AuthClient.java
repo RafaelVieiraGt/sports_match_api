@@ -5,10 +5,7 @@ import com.sportsmatch.sportsmatch.model.Users;
 import com.sportsmatch.sportsmatch.model.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,6 +30,9 @@ public class AuthClient {
             ResponseEntity<Map> response = restTemplate.exchange(
                     baseApiUrl, HttpMethod.POST, http, Map.class
             );
+
+            if (response.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR))
+                throw new RuntimeException();
 
             var user = objectMapper.convertValue(response.getBody(), Map.class);
 
